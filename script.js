@@ -9,7 +9,7 @@ class Car {
 
     calculatePrice() {
         let depreciation = (new Date().getFullYear() - this.year) * 500;
-        return this.price - depreciation < 0 ? 0 : this.price - depreciation; // Return calculated price
+        return Math.max(this.price - depreciation, 0); // Return calculated price
     }
 }
 
@@ -21,7 +21,7 @@ class CarManager {
     addCar(car) {
         this.cars.push(car);
         this.displayCars();
-        this.showTotalPrice(); // Call this after displaying cars
+        
     }
 
     displayCars() {
@@ -32,18 +32,11 @@ class CarManager {
     }
 
     showTotalPrice() {
-        let price;
-        let pricenow = 2024
-        if(this.price >= 0){
-            let depr = 500 * (now-this.year);
-            if(this.price > depr >= 0){
-                price = this.price - depr;
-            }
-            else{
-                price = 0;
-            }
-            console.log(price)
-        }
+        const totalPrice = this.cars.reduce((total, car) => total + car.calculatePrice(),0)
+
+        alert(`Total Price After Depreciation: $${showtotalPrice.toFixed(2)}`);
+
+        this.showTotalPrice(); // Call this after displaying cars
     }
 
 }
@@ -72,6 +65,6 @@ document.getElementById('carForm').addEventListener('submit', (e) => {
     addCar();
 });
 
-document.getElementById('totalPriceBtn').addEventListener('submit', () => {
-    carManager.showTotalPrice();
+document.getElementById('totalPrice').addEventListener('submit', () => {
+    showTotalPrice();
 });
